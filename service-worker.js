@@ -1,7 +1,7 @@
 /* IM Music Studio V67 · PWA shell only
    The application logic remains inside index.html and is not modified here. */
 
-const CACHE_NAME = "im-music-studio-v67-pwa-shell-v1";
+const CACHE_NAME = "im-music-studio-v67-pwa-shell-v2";
 const APP_SHELL = [
   "./",
   "./index.html",

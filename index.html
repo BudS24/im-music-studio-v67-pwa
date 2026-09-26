@@ -467,6 +467,232 @@ button,input,select{font:inherit}button{cursor:pointer}.app{min-height:100vh;dis
 }
 </style>
 <!-- IM MUSIC STUDIO MOBILE MENU FIX END -->
+
+<!-- IM MUSIC STUDIO IPHONE DASHBOARD COMPACT START -->
+<style>
+@media (max-width: 680px){
+
+  /* Nur die erste Seite / Albumübersicht wird kompakter.
+     Andere Workflow-Seiten bleiben unverändert. */
+  #dashboard .topbar{
+    align-items:flex-start;
+    gap:10px;
+  }
+  #dashboard .topbar > div:first-child{
+    min-width:0;
+  }
+  #dashboard .topbar h1{
+    line-height:1.15;
+  }
+  #dashboard .project-badge{
+    max-width:42%;
+    white-space:normal;
+    overflow-wrap:anywhere;
+    line-height:1.25;
+    text-align:center;
+    flex:0 0 auto;
+  }
+
+  #dashboard .toolbar{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:8px;
+    margin:12px 0 14px;
+  }
+  #dashboard .toolbar .btn{
+    width:100%;
+    min-width:0;
+    white-space:normal;
+    line-height:1.2;
+    padding:10px 8px;
+  }
+  #dashboard .toolbar .btn:last-child{
+    grid-column:1/-1;
+  }
+
+  #dashboard .stats{
+    grid-template-columns:1fr 1fr!important;
+    gap:8px;
+    margin-bottom:12px;
+  }
+  #dashboard .stat{
+    padding:11px 12px;
+  }
+  #dashboard .stat strong{
+    font-size:1.08rem;
+  }
+
+  #dashboard .section{
+    padding:12px;
+  }
+  #dashboard .section-head{
+    display:grid;
+    grid-template-columns:1fr;
+    gap:9px;
+    align-items:start;
+  }
+  #dashboard .section-head > div:last-child{
+    display:grid!important;
+    grid-template-columns:1fr 1fr;
+    gap:7px!important;
+  }
+  #dashboard .section-head > div:last-child .btn{
+    width:100%;
+    min-width:0;
+    white-space:normal;
+    line-height:1.2;
+    padding:9px 7px;
+  }
+
+  /* Filter oben: zwei kompakte Selects, Suche über volle Breite */
+  #dashboard .album-controls{
+    grid-template-columns:1fr 1fr!important;
+    gap:8px;
+  }
+  #dashboard .album-controls .control-search{
+    grid-column:1/-1;
+  }
+  #dashboard #clearFilterBtn{
+    grid-column:1/-1;
+    width:100%;
+  }
+
+  /* Die breite Desktop-Tabelle wird ausschließlich auf dem iPhone
+     in übersichtliche Albumkarten umgewandelt. */
+  #dashboard .table-wrap{
+    overflow:visible!important;
+    border:0!important;
+    border-radius:0!important;
+    background:transparent!important;
+  }
+  #dashboard .table-wrap > table{
+    display:block;
+    width:100%!important;
+    min-width:0!important;
+    border-collapse:separate!important;
+  }
+  #dashboard .table-wrap > table > thead{
+    display:none!important;
+  }
+  #dashboard #projectRows{
+    display:grid!important;
+    gap:10px;
+    width:100%;
+  }
+  #dashboard #projectRows > tr{
+    display:grid!important;
+    grid-template-columns:minmax(0,1fr) minmax(0,1fr);
+    gap:0 12px;
+    width:100%;
+    padding:11px 12px 10px;
+    border:1px solid #203943;
+    border-radius:10px;
+    background:#0a1f29;
+    overflow:hidden;
+  }
+  #dashboard #projectRows > tr:hover{
+    background:#0a1f29;
+  }
+  #dashboard #projectRows > tr.selected{
+    outline:none!important;
+    border-color:#806e2b;
+    box-shadow:inset 3px 0 var(--gold);
+    background:#102a34;
+  }
+
+  #dashboard #projectRows > tr > td{
+    display:flex!important;
+    flex-direction:column;
+    justify-content:flex-start;
+    align-items:flex-start;
+    min-width:0;
+    width:auto!important;
+    padding:7px 0!important;
+    border:0!important;
+    background:transparent!important;
+    line-height:1.3;
+    overflow-wrap:anywhere;
+    word-break:normal;
+  }
+
+  #dashboard #projectRows > tr > td::before{
+    display:block;
+    margin-bottom:4px;
+    color:#78919a;
+    font-size:.50rem;
+    line-height:1.1;
+    font-weight:900;
+    letter-spacing:.10em;
+    text-transform:uppercase;
+  }
+
+  #dashboard #projectRows > tr > td:nth-child(1)::before{content:"Albumcode"}
+  #dashboard #projectRows > tr > td:nth-child(2)::before{content:"Albumtitel"}
+  #dashboard #projectRows > tr > td:nth-child(3)::before{content:"Composer"}
+  #dashboard #projectRows > tr > td:nth-child(4)::before{content:"VÖ"}
+  #dashboard #projectRows > tr > td:nth-child(5)::before{content:"Honorar"}
+  #dashboard #projectRows > tr > td:nth-child(6)::before{content:"Erhalten"}
+  #dashboard #projectRows > tr > td:nth-child(7)::before{content:"Status"}
+  #dashboard #projectRows > tr > td:nth-child(8)::before{content:"Bearbeitet"}
+  #dashboard #projectRows > tr > td:nth-child(9)::before{content:"Aktion"}
+
+  /* Sinnvolle Anordnung innerhalb der Albumkarte */
+  #dashboard #projectRows > tr > td:nth-child(1){grid-column:1}
+  #dashboard #projectRows > tr > td:nth-child(4){grid-column:2}
+  #dashboard #projectRows > tr > td:nth-child(2),
+  #dashboard #projectRows > tr > td:nth-child(3),
+  #dashboard #projectRows > tr > td:nth-child(9){
+    grid-column:1/-1;
+  }
+
+  #dashboard #projectRows > tr > td:nth-child(2) strong{
+    font-size:.93rem;
+    line-height:1.25;
+  }
+  #dashboard #projectRows > tr > td:nth-child(3){
+    color:#c7d2d6;
+  }
+  #dashboard #projectRows > tr > td small{
+    display:block;
+    margin-top:3px;
+    line-height:1.25;
+  }
+  #dashboard #projectRows .check{
+    align-items:center;
+    gap:6px;
+  }
+  #dashboard #projectRows .status{
+    white-space:normal;
+    line-height:1.2;
+    text-align:center;
+  }
+
+  /* Aktionsbuttons nebeneinander und ohne horizontales Scrollen */
+  #dashboard #projectRows > tr > td:nth-child(9) > div{
+    display:grid!important;
+    grid-template-columns:1fr 1fr;
+    gap:7px!important;
+    width:100%;
+  }
+  #dashboard #projectRows > tr > td:nth-child(9) .btn{
+    width:100%;
+    min-width:0;
+    white-space:normal!important;
+    padding:9px 6px!important;
+    line-height:1.15;
+  }
+
+  /* Leerer Filterzustand */
+  #dashboard #projectRows > tr > td[colspan]{
+    grid-column:1/-1!important;
+    padding:14px 4px!important;
+  }
+  #dashboard #projectRows > tr > td[colspan]::before{
+    display:none!important;
+  }
+}
+</style>
+<!-- IM MUSIC STUDIO IPHONE DASHBOARD COMPACT END -->
 </head>
 <body>
 <div class="app">
