@@ -405,6 +405,68 @@ button,input,select{font:inherit}button{cursor:pointer}.app{min-height:100vh;dis
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="IM Music Studio">
 <!-- IM MUSIC STUDIO PWA SHELL END -->
+
+<!-- IM MUSIC STUDIO MOBILE MENU FIX START -->
+<style>
+@media (max-width: 680px){
+  body{overflow-x:hidden}
+  .app{display:block}
+  .sidebar{
+    position:fixed!important;
+    top:0;
+    left:0;
+    bottom:0;
+    width:min(86vw,320px)!important;
+    height:100dvh!important;
+    z-index:1002;
+    transform:translateX(-105%);
+    transition:transform .22s ease;
+    box-shadow:18px 0 40px rgba(0,0,0,.35);
+    overflow:auto!important;
+  }
+  body.im-mobile-menu-open .sidebar{transform:translateX(0)}
+  .main{padding:70px 16px 20px!important}
+  .im-mobile-menu-btn{
+    position:fixed;
+    top:calc(12px + env(safe-area-inset-top));
+    left:12px;
+    z-index:1004;
+    width:44px;
+    height:44px;
+    border-radius:11px;
+    border:1px solid var(--line);
+    background:#0b1d28;
+    color:var(--text);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:23px;
+    line-height:1;
+    box-shadow:0 8px 24px rgba(0,0,0,.28);
+    -webkit-tap-highlight-color:transparent;
+  }
+  .im-mobile-menu-btn:active{transform:scale(.97)}
+  .im-mobile-menu-backdrop{
+    position:fixed;
+    inset:0;
+    z-index:1001;
+    background:rgba(0,0,0,.52);
+    opacity:0;
+    pointer-events:none;
+    transition:opacity .22s ease;
+  }
+  body.im-mobile-menu-open .im-mobile-menu-backdrop{
+    opacity:1;
+    pointer-events:auto;
+  }
+  body.im-mobile-menu-open{overflow:hidden}
+}
+@media (min-width: 681px){
+  .im-mobile-menu-btn,
+  .im-mobile-menu-backdrop{display:none!important}
+}
+</style>
+<!-- IM MUSIC STUDIO MOBILE MENU FIX END -->
 </head>
 <body>
 <div class="app">
@@ -12634,4 +12696,69 @@ render();
 })();
 </script>
 <!-- IM MUSIC STUDIO PWA REGISTRATION END -->
+
+<!-- IM MUSIC STUDIO MOBILE MENU JS START -->
+<script>
+(() => {
+  const ready = () => {
+    if (document.querySelector(".im-mobile-menu-btn")) return;
+
+    const btn = document.createElement("button");
+    btn.type = "button";
+    btn.className = "im-mobile-menu-btn";
+    btn.setAttribute("aria-label", "Menü öffnen");
+    btn.setAttribute("aria-expanded", "false");
+    btn.textContent = "☰";
+
+    const backdrop = document.createElement("div");
+    backdrop.className = "im-mobile-menu-backdrop";
+    backdrop.setAttribute("aria-hidden", "true");
+
+    const openMenu = () => {
+      document.body.classList.add("im-mobile-menu-open");
+      btn.setAttribute("aria-expanded", "true");
+      btn.setAttribute("aria-label", "Menü schließen");
+      btn.textContent = "×";
+    };
+
+    const closeMenu = () => {
+      document.body.classList.remove("im-mobile-menu-open");
+      btn.setAttribute("aria-expanded", "false");
+      btn.setAttribute("aria-label", "Menü öffnen");
+      btn.textContent = "☰";
+    };
+
+    const toggleMenu = () => {
+      document.body.classList.contains("im-mobile-menu-open") ? closeMenu() : openMenu();
+    };
+
+    btn.addEventListener("click", toggleMenu);
+    backdrop.addEventListener("click", closeMenu);
+
+    document.querySelectorAll(".side-link").forEach(link => {
+      link.addEventListener("click", () => {
+        if (window.matchMedia("(max-width: 680px)").matches) closeMenu();
+      });
+    });
+
+    window.addEventListener("resize", () => {
+      if (!window.matchMedia("(max-width: 680px)").matches) closeMenu();
+    });
+
+    document.addEventListener("keydown", e => {
+      if (e.key === "Escape") closeMenu();
+    });
+
+    document.body.appendChild(backdrop);
+    document.body.appendChild(btn);
+  };
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", ready, {once:true});
+  } else {
+    ready();
+  }
+})();
+</script>
+<!-- IM MUSIC STUDIO MOBILE MENU JS END -->
 </body></html>
